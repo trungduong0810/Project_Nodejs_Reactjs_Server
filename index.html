@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const token =
+        "eyJhbGciOiJIUzI1NiJ9.ZHVvbmdAMDgxMGdtYWlsLmNvbQ.49PNbr0EYzwJQK9aBRf2kDQfFITJrYm6lqY1kHTf8a0";
+      fetch("http://localhost:5000/api/product", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Lỗi khi truy cập tài nguyên bảo vệ");
+          }
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Lỗi khi thực hiện yêu cầu:", error.message);
+        });
+    </script>
+  </body>
+</html>
