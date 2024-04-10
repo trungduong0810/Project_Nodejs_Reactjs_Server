@@ -12,6 +12,10 @@ import apiProductColor from "./router/Api/product/apiProductColor.js";
 import aipProductDetails from "./router/Api/product/apiProductDetails.js";
 import aipCarts from "./router/Api/apiCart.js";
 import apiOrders from "./router/Api/apiOrders.js";
+import apiNews from "./router/Api/apiNews.js";
+import apiReviewProduct from "./router/Api/apiReviewProduct.js";
+import apiDiscount from "./router/Api/apiDiscount.js";
+import socKetChat from "./router/Api/Chat/socket.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,7 +35,12 @@ app.use("/", apiProductColor);
 app.use("/", aipProductDetails);
 app.use("/", aipCarts);
 app.use("/", apiOrders);
+app.use("/", apiNews);
+app.use("/", apiReviewProduct);
+app.use("/", apiDiscount);
 
+//todo: ============== server Chat ==================
+socKetChat
 app.listen(PORT, () => {
   console.log(`server is running on Port`, PORT);
 });

@@ -15,6 +15,22 @@ apiUsers.get("/api/users", authToken, async (req, res) => {
   }
 });
 
+//todo: Lấy ra user theo id
+
+apiUsers.get("/api/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const user = await Users.findByPk(userId);
+    if (user) {
+      res.json({ status: "Success", user });
+    } else {
+      res.status(404).json({ status: "Error", message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ status: "Error", message: "Internal Server Error" });
+  }
+});
+
 //todo: Thêm user vào database
 apiUsers.post("/api/users", async (req, res) => {
   const username = req.body.username;
@@ -47,6 +63,25 @@ apiUsers.post("/api/users", async (req, res) => {
 apiUsers.delete("/api/users/:id", async (req, res) => {
   const userId = req.params.id;
   deleteDb(req, res, Users, userId);
+});
+
+//todo: update imageUser
+apiUsers.put("/api/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  const { userImage } = req.body;
+  try {
+    const updateUser = await Users.update(
+      { userImage: userImage },
+      { where: { id: userId } }
+    );
+    if (updateUser)
+      return res.status(200).json({
+        status: "Success",
+        success: "User information updated successfully",
+      });
+  } catch (error) {
+    res.status(500).json({ status: "Error", message: "Internal Server Error" });
+  }
 });
 
 export default apiUsers;
